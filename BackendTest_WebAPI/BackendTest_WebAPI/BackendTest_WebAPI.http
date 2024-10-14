@@ -1,0 +1,6 @@
+@BackendTest_WebAPI_HostAddress = http://localhost:5285
+
+GET {{BackendTest_WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
