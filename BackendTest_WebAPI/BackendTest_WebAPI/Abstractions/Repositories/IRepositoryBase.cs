@@ -12,8 +12,7 @@ public interface IRepositoryBase<TEntity, in TKey> where TEntity : class
 
     Task AddAsync(TEntity entity);
 
-    Task UpdateAsync(TEntity entity);
+    void Update(TEntity entity);
 
-    Task RemoveAsync(TEntity entity);
-
+    void Remove(TEntity entity);
 }

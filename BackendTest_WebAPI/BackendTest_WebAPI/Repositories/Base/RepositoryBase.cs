@@ -39,18 +39,15 @@ public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>, IDi
     public async Task AddAsync(TEntity entity)
     {
         await context.AddAsync(entity);
-        await context.SaveChangesAsync();
     }
 
-    public async Task RemoveAsync(TEntity entity)
+    public void Remove(TEntity entity)
     {
         context.Set<TEntity>().Remove(entity);
-        await context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(TEntity entity)
+    public void Update(TEntity entity)
     {
         context.Set<TEntity>().Update(entity);
-        await context.SaveChangesAsync();
     }
 }

@@ -1,4 +1,5 @@
 using BackendTest_WebAPI.DependencyInjection.Extensions;
+using BackendTest_WebAPI.Middlewares;
 using FluentValidation;
 using System.Reflection;
 
@@ -13,8 +14,12 @@ builder.Services.AddRepositoryBaseConfiguration();
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+builder.Services.AddTransient<TransactionHandingMiddleware>();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
@@ -27,6 +32,8 @@ if (app.Environment.IsDevelopment())
         options.EnableTryItOutByDefault();
     });
 }
+app.UseMiddleware<TransactionHandingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace BackendTest_WebAPI.Services.Validators;
+namespace BackendTest_WebAPI.Services.Product.Validators;
 
-public class CreateProductValidator : AbstractValidator<Command.CreateProduct>
+public class UpdateProductValidator : AbstractValidator<Command.UpdateProduct>
 {
-    public CreateProductValidator()
+    public UpdateProductValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name is required");

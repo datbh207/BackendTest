@@ -1,4 +1,4 @@
-﻿namespace BackendTest_WebAPI.Services;
+﻿namespace BackendTest_WebAPI.Services.Product;
 
 public class Query
 {

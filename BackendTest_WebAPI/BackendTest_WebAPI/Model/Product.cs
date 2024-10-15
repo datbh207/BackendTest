@@ -1,5 +1,5 @@
 ﻿using BackendTest_WebAPI.Abstractions.EntityBase;
-using BackendTest_WebAPI.Services;
+using BackendTest_WebAPI.Services.Product;
 
 namespace BackendTest_WebAPI.Model;
 

@@ -35,5 +35,8 @@ public class ProductRepository : RepositoryBase<Product, int>, IProductRepositor
         return product;
     }
 
-
+    public async Task SaveChangeAsync()
+    {
+        await context.SaveChangesAsync();
+    }
 }
