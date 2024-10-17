@@ -25,7 +25,7 @@ public class TransactionHandingMiddleware : IMiddleware
             var strategy = dbcontext.Database.CreateExecutionStrategy();
             await strategy.ExecuteAsync(async () =>
             {
-                await using var transaction = await dbcontext.Database.BeginTransactionAsync(); // Isolation Level here
+                await using var transaction = await dbcontext.Database.BeginTransactionAsync();
                 {
                     try
                     {
@@ -33,7 +33,7 @@ public class TransactionHandingMiddleware : IMiddleware
                         await dbcontext.SaveChangesAsync();
                         await transaction.CommitAsync();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         throw;
                     }

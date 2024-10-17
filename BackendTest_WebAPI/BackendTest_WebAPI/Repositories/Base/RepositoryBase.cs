@@ -20,7 +20,7 @@ public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>, IDi
     public virtual IQueryable<TEntity> FindAll(Expression<Func<TEntity, bool>>? predicate = null,
         params Expression<Func<TEntity, object>>[] includeProperties)
     {
-        IQueryable<TEntity> items = context.Set<TEntity>().AsNoTracking(); // Importance Always include AsNoTracking for Query Side
+        IQueryable<TEntity> items = context.Set<TEntity>().AsNoTracking();
         if (includeProperties != null)
             foreach (var includeProperty in includeProperties)
                 items = items.Include(includeProperty);
@@ -37,17 +37,12 @@ public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey>, IDi
         => await FindAll(null, includeProperties).AsTracking().SingleOrDefaultAsync(predicate, cancellationToken);
 
     public async Task AddAsync(TEntity entity)
-    {
-        await context.AddAsync(entity);
-    }
+        => await context.AddAsync(entity);
 
     public void Remove(TEntity entity)
-    {
-        context.Set<TEntity>().Remove(entity);
-    }
+        => context.Set<TEntity>().Remove(entity);
 
     public void Update(TEntity entity)
-    {
-        context.Set<TEntity>().Update(entity);
-    }
+        => context.Set<TEntity>().Update(entity);
+
 }

@@ -1,4 +1,4 @@
-﻿using BackendTest_WebAPI.Model;
+﻿using BackendTest_WebAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

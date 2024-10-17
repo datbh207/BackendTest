@@ -2,12 +2,12 @@
 
 public class Command
 {
-    public record CreateProduct(
+    public record CreateProductCommand(
         string Name,
         decimal Price,
         int StockQuantity);
 
-    public record UpdateProduct(
+    public record UpdateProductCommand(
         string Name,
         decimal Price,
         int StockQuantity);

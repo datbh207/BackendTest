@@ -1,5 +1,5 @@
 ﻿using BackendTest_WebAPI.Abstractions.Repositories;
-using BackendTest_WebAPI.Model;
+using BackendTest_WebAPI.Entities;
 using BackendTest_WebAPI.Repositories.Base;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;

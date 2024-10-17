@@ -1,5 +1,5 @@
 ﻿using BackendTest_WebAPI.Abstractions.Repositories;
-using BackendTest_WebAPI.Model;
+using BackendTest_WebAPI.Entities;
 using BackendTest_WebAPI.Services.Product;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,12 +12,12 @@ namespace BackendTest_WebAPI.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IProductRepository productRepository;
-    private readonly IValidator<Command.CreateProduct> createProductValidator;
-    private readonly IValidator<Command.UpdateProduct> updateProductValidator;
+    private readonly IValidator<Command.CreateProductCommand> createProductValidator;
+    private readonly IValidator<Command.UpdateProductCommand> updateProductValidator;
     public ProductController(
         IProductRepository productRepository,
-        IValidator<Command.CreateProduct> createProductValidator,
-        IValidator<Command.UpdateProduct> updateProductValidator
+        IValidator<Command.CreateProductCommand> createProductValidator,
+        IValidator<Command.UpdateProductCommand> updateProductValidator
         )
     {
         this.productRepository = productRepository;
@@ -26,7 +26,7 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpGet()]
+    [HttpGet]
     public async Task<IActionResult> Products()
     {
         var products = await productRepository.GetAllAsync();
@@ -47,7 +47,7 @@ public class ProductController : ControllerBase
 
 
     [HttpPost]
-    public async Task<IActionResult> Products([FromBody] Command.CreateProduct request)
+    public async Task<IActionResult> Products([FromBody] Command.CreateProductCommand request)
     {
 
         var validationResult = await createProductValidator.ValidateAsync(request);
@@ -55,12 +55,7 @@ public class ProductController : ControllerBase
         if (!validationResult.IsValid)
             return BadRequest(ConvertErrorToResponse(validationResult));
 
-        var product = new Product
-        {
-            Name = request.Name,
-            Price = request.Price,
-            StockQuantity = request.StockQuantity,
-        };
+        var product = Product.Create(request);
 
         await productRepository.AddAsync(product);
         await productRepository.SaveChangeAsync();
@@ -69,7 +64,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Products([FromRoute] int id, [FromBody] Command.UpdateProduct request)
+    public async Task<IActionResult> Products([FromRoute] int id, [FromBody] Command.UpdateProductCommand request)
     {
         var validationResult = await updateProductValidator.ValidateAsync(request);
 
@@ -84,7 +79,7 @@ public class ProductController : ControllerBase
         product.Update(request);
         productRepository.Update(product);
 
-        return Accepted();
+        return Accepted(product);
     }
 
     [HttpDelete("{id:int}")]

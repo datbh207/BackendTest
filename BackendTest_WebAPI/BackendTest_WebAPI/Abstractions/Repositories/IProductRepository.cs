@@ -1,4 +1,4 @@
-﻿using BackendTest_WebAPI.Model;
+﻿using BackendTest_WebAPI.Entities;
 
 namespace BackendTest_WebAPI.Abstractions.Repositories;
 
